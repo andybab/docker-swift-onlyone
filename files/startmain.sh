@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/bash -x
+
+/etc/init.d/rsyslog start 
 
 #
 # Make the rings if they don't exist already
@@ -9,10 +11,12 @@ SWIFT_PART_POWER=${SWIFT_PART_POWER:-7}
 SWIFT_PART_HOURS=${SWIFT_PART_HOURS:-1}
 SWIFT_REPLICAS=${SWIFT_REPLICAS:-1}
 
+mkdir /srv/sdb1
 if [ -e /srv/account.builder ]; then
 	echo "Ring files already exist in /srv, copying them to /etc/swift..."
 	cp /srv/*.builder /etc/swift/
 	cp /srv/*.gz /etc/swift/
+        mkdir /srv/sdb1
 fi
 
 # This comes from a volume, so need to chown it here, not sure of a better way
